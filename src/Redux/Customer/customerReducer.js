@@ -1,7 +1,9 @@
-import { ADD_TASK } from "./customerActionType";
+import { ADD_TASK, CURRENT_COLOR, CURRENT_MODE } from "./customerActionType";
 
 const initialState = {
-    name: 'hardik'
+    name: 'hardik',
+    currentColor : '#03C9D7',
+    currentMode : 'Light'
   };
   
   export const customerReducer = (state = initialState, action) => {
@@ -11,6 +13,16 @@ const initialState = {
         return {
           ...state,
           name: payload
+        };
+      case CURRENT_COLOR:
+        return {
+         ...state,
+         currentColor: payload
+        };
+      case CURRENT_MODE:
+        return {
+         ...state,
+         currentMode: payload
         };
       default:
         return state;
