@@ -8,7 +8,9 @@ function App() {
   const { currentMode } = useSelector(state => state.customer)
 
   return (
-    <Consultant />
+    <>
+      <Consultant />
+    </>
   )
 }
 
