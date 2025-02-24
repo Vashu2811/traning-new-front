@@ -3,13 +3,12 @@ import './App.css'
 
 function App() {
 
-  return (
-    <>
-      <div>
-   vashu  
 
-       </div>
-    </>
+  return (
+    <div>
+      vashu
+    </div>
+     
   )
 }
 
