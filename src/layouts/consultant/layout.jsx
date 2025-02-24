@@ -71,7 +71,7 @@ const ConsultantLayout = () => {
             navigate("/unauthorized", { replace: true });
             return;
           }
-          // navigate(authorizedRoles[userAssignedRole], { replace: true });
+          // navigate(authorizedRoles[userAssignedRole], { replace: true });s
           if (!busy && !loginAt) {
             navigate(authorizedRoles[userAssignedRole], { replace: true });
           } else if (location.pathname === "/") {

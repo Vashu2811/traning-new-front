@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const TopNavTrainee = ({courseId,selectedCourse,moduleName,moduleId,lessonId,lessonName, type}) => {
   return (
     <nav
-            class="flex mx-12 my-4 "
+            class="flex mx-24my-4 "
             aria-label="Breadcrumb"
           >
             <ol class="md:inline-flex md:flex items-center justify-center space-x-1 md:space-x-1 rtl:space-x-reverse">

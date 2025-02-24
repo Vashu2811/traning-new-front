@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import "./App.css";
@@ -7,7 +7,7 @@ import "./App.css";
 
 import { ThemeSettings } from "components";
 import { AuthProvider as AppProvider } from "contexts/authProvider";
-import { AuthProvider, useAuthInfo, RedirectToLogin } from "@propelauth/react";
+import { AuthProvider,  RedirectToLogin } from "@propelauth/react";
 import ConsultantLayout from "layouts/consultant/layout";
 import Auth from "pages/Auth";
 import Interviewprep from "pages/user/Interviewprep";
@@ -43,7 +43,6 @@ import Unauthorized from "pages/Unauthorized";
 import Loading from "../src/components/Loading";
 import Copilot from "pages/user/Copilot";
 import HandsOnSupport from "pages/user/HandsOnSupport";
-import Mentor from "pages/user/Mentor";
 import Mentorvbee from "layouts/mentorvbee/layout";
 import Home from "pages/MentorVbee/Home";
 import Profile from "pages/MentorVbee/Profile";
@@ -96,15 +95,7 @@ const App = () => {
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <div className="relative block dark:bg-main-dark-bg">
         <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
-          {/* <TooltipComponent content="Settings" position="Top">
-          <button
-            type="button"
-            onClick={() => setThemeSettings(true)}
-            className="text-3xl text-white p-2.5 bg-[#1A1C1E] rounded-full"
-          >
-            <FiSettings />
-          </button>
-        </TooltipComponent> */}
+        
         </div>
         <div className="flex justify-center">
           {themeSettings && <ThemeSettings />}
@@ -117,16 +108,8 @@ const App = () => {
             }>
               <Loading />
               <Routes>
-                {/* Auth Routes */}
-                {/* <Route path="/signin" element={<SignIn />} /> */}
-
-                {/* Public Routes */}
                 <Route path="/" element={<ConsultantLayout />}>
-                  <Route index element={<Consultant />} />
-                  {/* <Route path="/queenbee" element={<Queenbee />} /> */}
-                  {/* <Route path="/" element={<Intervies />} /> */}
-
-                  {/* User Authorized Routes */}
+                <Route index element={<Consultant />} />
                   <Route element={<Auth allowedRoles={["traineebee"]} />}>
                     <Route path="/training" element={<Training />} />
                     <Route
@@ -188,7 +171,6 @@ const App = () => {
                 {/* Admin Routes */}
                 <Route element={<Auth allowedRoles={["trainerbeee", "trainer-bee"]} />}>
                   <Route path="/admin" element={<PageLayout />}>
-                    {/* <Route path="/admin/home" element={<Ecommerce />} /> */}
                     <Route path="/admin/courses" element={<Courses />} />
                     <Route
                       path="/admin/courses/:courseId"
@@ -239,10 +221,6 @@ const App = () => {
                 {/* Not Found Page */}
                 <Route path="*" element={<>Not Found Page</>} />
 
-                {/* <Route path="/consultant" element={<ConsultantLayout />}>
-    <Route index element={<Consultant />} />
-    <Route path="/consultant/queenbee" element={<Queenbee />} />
-  </Route> */}
                 <Route element={<Auth allowedRoles={["adminvbee"]} />}>
                   <Route path="/adminvbee" element={<Adminvbee />}>
                     <Route
