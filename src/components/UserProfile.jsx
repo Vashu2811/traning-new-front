@@ -10,13 +10,18 @@ import { useLogoutFunction } from "@propelauth/react";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from "react-redux";
+import { setHandleIsClicked } from "store/Customer/customerAction";
 
 
 const UserProfile = ({auth}) => {
-  const { currentColor, handleClick } = useStateContext();
+  const { handleClick } = useStateContext();
+  const { currentColor } = useSelector(state => state.customer);
+
   const logout = useLogoutFunction();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // const handleLogout = async () => {
   //   console.log("Logging out...");
@@ -49,7 +54,7 @@ const UserProfile = ({auth}) => {
   };
   const closeProfile = (e) => {
     if (!document.getElementById("profileContainer").contains(e.target)) {
-      handleClick(false); // Close profile if click is outside the profile
+      dispatch(setHandleIsClicked(false)); // Close profile if click is outside the profile
     }
   };
 
@@ -72,7 +77,7 @@ const UserProfile = ({auth}) => {
         <p className="font-semibold text-lg dark:text-gray-200">User Profile</p>
         <button
           type="button"
-          onClick={() => handleClick(false)}
+          onClick={() => dispatch(setHandleIsClicked(false))}
           style={{ color: "rgb(153, 171, 180)", borderRadius: "50%" }}
           className="text-2xl p-3 hover:drop-shadow-xl hover:bg-[#282B2F]"
         >

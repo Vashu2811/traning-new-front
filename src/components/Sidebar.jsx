@@ -11,16 +11,22 @@ import { RiContactsLine } from "react-icons/ri";
 import { BsKanban } from "react-icons/bs";
 import { BiColorFill } from "react-icons/bi";
 import logo from "../data/logo-light.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveMenu } from "store/Customer/customerAction";
 
 const Sidebar = () => {
-  const { activeMenu, setActiveMenu, screenSize, currentColor } =
+  const {  } =
     useStateContext();
+  const { currentColor, activeMenu, screenSize, } = useSelector(state => state.customer);
+
+  const dispatch = useDispatch()
+
   const convertToValidRoute = (name) => {
     return name.replace(/\s+/g, "-");
   };
   const handleCloseSidebar = () => {
     if (activeMenu && screenSize <= 900) {
-      setActiveMenu(false);
+      dispatch(setActiveMenu(false));
     }
   };
 

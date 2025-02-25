@@ -3,9 +3,12 @@ import { GoDotFill } from "react-icons/go";
 import { Button } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 import { SparklineAreaData, earningData } from "../data/dummy";
+import { useSelector } from "react-redux";
 
 const Ecommerce = () => {
-  const { currentColor } = useStateContext();
+  const {  } = useStateContext();
+  const { currentColor } = useSelector(state => state.customer);
+
   return (
     <div className="px-12 py-6 lg:mt-16 md:mt-16 max-sm:mt-20 sm:mt-20 bg-[#242728]">
       <div className="flex flex-wrap justify-center lg:flex-nowrap">

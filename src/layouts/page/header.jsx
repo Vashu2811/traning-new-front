@@ -10,6 +10,8 @@ import {  Notification, UserProfile } from "components";
 import avatar from "data/avatar.jpg";
 import { useStateContext } from "../../contexts/ContextProvider";
 import logo from "../../data/logo-ico.svg"
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveMenu, setHandleIsClicked, setScreenSize } from "store/Customer/customerAction";
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   <TooltipComponent content={title} position="BottomCenter">
     <button
@@ -29,19 +31,18 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 
 const Header = () => {
   const {
-    currentColor,
-    activeMenu,
-    setActiveMenu,
     handleClick,
-    isClicked,
-    setScreenSize,
-    screenSize,
+    
   } = useStateContext();
+  const { currentColor, activeMenu, isClicked, screenSize, } = useSelector(state => state.customer);
+
+  const dispatch = useDispatch();
+
 
   const [auth,setAuth] = useState()
 
   useEffect(() => {
-    const handleResize = () => setScreenSize(window.innerWidth);
+    const handleResize = () => dispatch(setScreenSize(window.innerWidth));
 
     window.addEventListener("resize", handleResize);
 
@@ -51,13 +52,13 @@ const Header = () => {
   }, []);
   useEffect(() => {
     if (screenSize <= 900) {
-      setActiveMenu(false);
+      dispatch(setActiveMenu(false));
     } else {
-      setActiveMenu(true);
+      dispatch(setActiveMenu(true));
     }
   }, [screenSize]);
 
-  const handleActiveMenu = () => setActiveMenu(!activeMenu);
+  const handleActiveMenu = () => dispatch(setActiveMenu(!activeMenu));
 
 useEffect(()=>{
   const authString = localStorage.getItem("auth");
@@ -169,14 +170,14 @@ useEffect(()=>{
           {/* <NavButton
             title="Notification"
             dotColor="#F7685B"
-            customFunc={() => handleClick("notification")}
+            customFunc={() => dispatch(setHandleIsClicked("notification"))}
             color={"#BDBEBE"}
             icon={<RiNotification3Line />}
           /> */}
           {/* <TooltipComponent content="Profile" position="BottomCenter">
             <div
               className="flex items-center gap-2 p-1 rounded-lg cursor-pointer hover:bg-[#292B2D]"
-              onClick={() => handleClick("userProfile")}
+              onClick={() => dispatch(setHandleIsClicked("userProfile"))}
             >
             
               <p>

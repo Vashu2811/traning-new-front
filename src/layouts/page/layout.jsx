@@ -8,13 +8,15 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import Header from "./header";
 import Sidebar from "./sidebar";
 import { useAuthInfo, useOrgHelper } from "@propelauth/react";
+import { useSelector } from "react-redux";
 // import ConsultantHeader from "../consultant/";
 const PageLayout = () => {
+  const { activeMenu, activeHeader } = useSelector(state => state.customer);
   const orgHelper = useOrgHelper();
   const indexPage = useMatch("/");
   const [isIndex, setIsIndex] = useState(indexPage || false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { activeMenu, activeHeader } = useStateContext();
+  const {  } = useStateContext();
   const navigate = useNavigate();
   const auth = useAuthInfo()
   useEffect(() => {

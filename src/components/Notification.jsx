@@ -4,9 +4,15 @@ import { MdOutlineCancel } from "react-icons/md";
 import { Button } from ".";
 import { chatData } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { setHandleIsClicked } from "store/Customer/customerAction";
 
 const Notification = () => {
-  const { currentColor, handleClick } = useStateContext();
+  const { handleClick } = useStateContext();
+  const { currentColor } = useSelector(state => state.customer);
+
+  const dispatch = useDispatch()
+
 
   return (
     <div className="nav-item absolute right-5 md:right-40 top-16 bg-[#1A1C1E] border-2 border-gray-600 p-8 rounded-lg w-96">
@@ -22,7 +28,7 @@ const Notification = () => {
         </div>
         <button
           type="button"
-          onClick={() => handleClick(false)}
+          onClick={() => dispatch(setHandleIsClicked(false))}
           style={{ color: "rgb(153, 171, 180)", borderRadius: "50%" }}
           className="text-2xl hover:drop-shadow-xl hover:bg-light-gray"
         >

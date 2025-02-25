@@ -3,7 +3,8 @@ import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useStateContext } from "../../contexts/ContextProvider";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveMenu, setScreenSize } from "store/Customer/customerAction";
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   <TooltipComponent content={title} position="BottomCenter">
@@ -85,11 +86,13 @@ const ProfileSection = ({ navigate }) => {
 };
 
 const MentorvbeeHeader = () => {
+  const { activeMenu, screenSize, } = useSelector(state => state.customer);
   const navigate = useNavigate();
-  const { activeMenu, setActiveMenu, setScreenSize, screenSize } = useStateContext();
+  const { } = useStateContext();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const handleResize = () => setScreenSize(window.innerWidth);
+    const handleResize = () => dispatch(setScreenSize(window.innerWidth));
     window.addEventListener("resize", handleResize);
 
     handleResize(); 
@@ -97,10 +100,10 @@ const MentorvbeeHeader = () => {
   }, [setScreenSize]);
 
   useEffect(() => {
-    setActiveMenu(screenSize > 900);
+    dispatch(setActiveMenu(screenSize > 900));
   }, [screenSize, setActiveMenu]);
 
-  const toggleMenu = () => setActiveMenu(!activeMenu);
+  const toggleMenu = () => dispatch(setActiveMenu(!activeMenu));
 
   return (
     <div

@@ -5,9 +5,15 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { themeColors } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentMode, setThemeSettings } from 'store/Customer/customerAction';
 
 const ThemeSettings = () => {
-  const { setColor, setMode, currentMode, currentColor, setThemeSettings } = useStateContext();
+  const { setColor,  } = useStateContext();
+  const { currentColor, currentMode } = useSelector(state => state.customer);
+
+  const dispatch = useDispatch();
+
 
   return (
     <div className="bg-half-transparent w-screen fixed nav-item top-0 right-0">
@@ -16,7 +22,7 @@ const ThemeSettings = () => {
           <p className="font-semibold text-lg">Settings</p>
           <button
             type="button"
-            onClick={() => setThemeSettings(false)}
+            onClick={() => dispatch(setThemeSettings(false))}
             style={{ color: 'rgb(153, 171, 180)', borderRadius: '50%' }}
             className="text-2xl p-3 hover:drop-shadow-xl hover:bg-light-gray"
           >
@@ -34,7 +40,11 @@ const ThemeSettings = () => {
               name="theme"
               value="Light"
               className="cursor-pointer"
-              onChange={setMode}
+              onChange={(e) => {
+                dispatch(setCurrentMode(e.target.value));
+                localStorage.setItem('themeMode', e.target.value);
+                dispatch(setThemeSettings(false));
+              }}
               checked={currentMode === 'Light'}
             />
             
@@ -48,7 +58,11 @@ const ThemeSettings = () => {
               id="dark"
               name="theme"
               value="Dark"
-              onChange={setMode}
+              onChange={(e) => {
+                dispatch(setCurrentMode(e.target.value));
+                localStorage.setItem('themeMode', e.target.value);
+                dispatch(setThemeSettings(false));
+              }}
               className="cursor-pointer"
               checked={currentMode === 'Dark'}
             />
@@ -71,7 +85,11 @@ const ThemeSettings = () => {
                     type="button"
                     className="h-10 w-10 rounded-full cursor-pointer"
                     style={{ backgroundColor: item.color }}
-                    onClick={() => setColor(item.color)}
+                    onClick={() => {
+                      dispatch(setCurrentMode(item.color));
+                      localStorage.setItem('colorMode', item.color);
+                      dispatch(setThemeSettings(false));
+                    }}
                   >
                     <BsCheck className={`ml-2 text-2xl text-white ${item.color === currentColor ? 'block' : 'hidden'}`} />
                   </button>

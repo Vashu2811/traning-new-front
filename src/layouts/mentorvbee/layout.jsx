@@ -6,11 +6,13 @@ import { twMerge } from "tailwind-merge";
 import { useStateContext } from "../../contexts/ContextProvider";
 import MentorvbeeSidebar from "./MentorvbeeSidebar";
 import { useAuthInfo } from "@propelauth/react";
+import { useSelector } from "react-redux";
 
 const Mentorvbee = () => {
+  const { activeMenu, activeHeader } = useSelector(state => state.customer);
   const indexPage = useMatch("/");
   const [isIndex, setIsIndex] = useState(indexPage || false);
-  const { activeMenu, activeHeader } = useStateContext();
+  const {  } = useStateContext();
   const navigate = useNavigate();
   const auth = useAuthInfo()
   useEffect(() => {

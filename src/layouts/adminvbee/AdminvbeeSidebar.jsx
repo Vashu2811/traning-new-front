@@ -7,16 +7,22 @@ import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../data/logo-light.svg";
 import logo_gray from "../../data/logo-gray.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveMenu } from "store/Customer/customerAction";
 
 const AdminvbeeSidebar = () => {
-  const { activeMenu, setActiveMenu, screenSize, currentColor } =
+  const {   } =
     useStateContext();
+  const { currentColor, activeMenu, screenSize, } = useSelector(state => state.customer);
+
+  const dispatch = useDispatch();
+
   const convertToValidRoute = (name) => {
     return name.replace(/\s+/g, "-");
   };
   const handleCloseSidebar = () => {
     if (activeMenu && screenSize <= 900) {
-      setActiveMenu(false);
+      dispatch(setActiveMenu(false));
     }
   };
   const generatePath = (name) => {

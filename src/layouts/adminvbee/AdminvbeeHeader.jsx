@@ -9,6 +9,8 @@ import { RiNotification3Line } from "react-icons/ri";
 import { Notification, UserProfile } from "components";
 import avatar from "data/avatar.jpg";
 import { useStateContext } from "../../contexts/ContextProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveMenu, setHandleIsClicked, setScreenSize } from "store/Customer/customerAction";
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   <TooltipComponent content={title} position="BottomCenter">
@@ -31,17 +33,15 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 
 const AdminvbeeHeader = () => {
   const {
-    currentColor,
-    activeMenu,
-    setActiveMenu,
     handleClick,
-    isClicked,
-    setScreenSize,
-    screenSize,
   } = useStateContext();
+  const { currentColor, activeMenu, isClicked, screenSize, } = useSelector(state => state.customer);
+
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
-    const handleResize = () => setScreenSize(window.innerWidth);
+    const handleResize = () => dispatch(setScreenSize(window.innerWidth));
 
     window.addEventListener("resize", handleResize);
 
@@ -52,13 +52,13 @@ const AdminvbeeHeader = () => {
 
   useEffect(() => {
     if (screenSize <= 900) {
-      setActiveMenu(false);
+      dispatch(setActiveMenu(false));
     } else {
-      setActiveMenu(true);
+      dispatch(setActiveMenu(true));
     }
   }, [screenSize]);
 
-  const handleActiveMenu = () => setActiveMenu(!activeMenu);
+  const handleActiveMenu = () => dispatch(setActiveMenu(!activeMenu));
 
    const transformProfileData = (data) => {
       if (!data) return null;
@@ -161,7 +161,7 @@ const AdminvbeeHeader = () => {
           {/* <NavButton
             title="Notification"
             dotColor="#F7685B"
-            customFunc={() => handleClick("notification")}
+            customFunc={() => dispatch(setHandleIsClicked("notification"))}
             color={"#BDBEBE"}
             icon={<RiNotification3Line />}
           /> */}

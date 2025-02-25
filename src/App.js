@@ -38,7 +38,7 @@ import ManageCourses from "pages/AdminVbee/ManageCourses";
 import ManageMentors from "pages/AdminVbee/Mentor";
 import Cources from "pages/user/Cources";
 import TrainingModules from "pages/user/TrainingModules";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Unauthorized from "pages/Unauthorized";
 import Loading from "../src/components/Loading";
 import Copilot from "pages/user/Copilot";
@@ -52,9 +52,12 @@ import Videos from "pages/MentorVbee/Videos";
 import MentorList from "pages/user/MentorList";
 import ChatScreen from "pages/user/chat/ChatScreen";
 import Shorts from "pages/Shorts";
+import { setCurrentColor, setCurrentMode } from "store/Customer/customerAction";
 
 const App = () => {
-  const { setCurrentColor, setCurrentMode, currentMode, themeSettings } =
+  const { name, currentMode, themeSettings } = useSelector(state => state.customer);
+
+  const {  } =
     useStateContext();
 
   const [courseId, setCoursesIds] = useState();
@@ -65,8 +68,8 @@ const App = () => {
     const currentThemeColor = localStorage.getItem("colorMode");
     const currentThemeMode = localStorage.getItem("themeMode");
     if (currentThemeColor && currentThemeMode) {
-      setCurrentColor(currentThemeColor);
-      setCurrentMode(currentThemeMode);
+      dispatch(setCurrentColor(currentThemeColor));
+      dispatch(setCurrentMode(currentThemeMode));
     }
   }, []);
 

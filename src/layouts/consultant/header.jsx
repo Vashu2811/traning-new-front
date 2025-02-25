@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "styles/Consultant.css";
 import logo from "../../data/logo-light.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveHeader } from "store/Customer/customerAction";
 
 
 const Header = ({ sidebarOpen, setSidebarOpen }) => {
@@ -18,14 +20,15 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 
   const navigate = useNavigate();
   const {
-    currentColor,
-    activeHeader,
-    setActiveHeader,
     handleClick,
-    isClicked,
+    
     setScreenSize,
-    screenSize,
+    
   } = useStateContext();
+  const { currentColor, activeHeader, isClicked, screenSize, } = useSelector(state => state.customer);
+
+  const dispatch = useDispatch();
+
   const [color, setColor] = useState(false);
 
   useEffect(() => {
@@ -44,13 +47,13 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
   }, []);
   useEffect(() => {
     if (screenSize <= 900) {
-      setActiveHeader(false);
+      dispatch(setActiveHeader(false));
     } else {
-      setActiveHeader(true);
+      dispatch(setActiveHeader(true));
     }
   }, [screenSize]);
 
-  const handleActiveMenu = () => setActiveHeader(!activeHeader);
+  const handleActiveMenu = () => dispatch(setActiveHeader(!activeHeader));
   const handleLoginClick = () => {
     
 

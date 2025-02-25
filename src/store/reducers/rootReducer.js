@@ -6,6 +6,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import courses from "./courseReducer.js"; // Assuming you have a course reducer
 import loading from "./loadingReducer.js";
 import userSlice from "./userSlice.js";
+import { customerReducer } from "store/Customer/customerReducer.js";
 
 // Combine reducers
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   [courses.name]: courses.reducer,
   [loading.name]: loading.reducer,
   [userSlice.name]: userSlice.reducer,
+  customer: customerReducer
   // Add other reducers here if you have any
 });
 

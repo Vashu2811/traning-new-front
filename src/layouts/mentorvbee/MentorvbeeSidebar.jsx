@@ -6,14 +6,20 @@ import logo_gray from "../../data/logo-gray.svg";
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useLogoutFunction } from "@propelauth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveMenu } from "store/Customer/customerAction";
 
 const MentorvbeeSidebar = () => {
-  const { activeMenu, setActiveMenu, screenSize } =
+  const { activeMenu, screenSize } = useSelector(state => state.customer);
+
+  const dispatch = useDispatch();
+
+  const {  } =
     useStateContext();
 
   const handleCloseSidebar = () => {
     if (activeMenu && screenSize <= 900) {
-      setActiveMenu(false);
+      dispatch(setActiveMenu(false));
     }
   };
   const generatePath = (name) => {
