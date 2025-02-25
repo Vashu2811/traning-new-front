@@ -12,4 +12,5 @@ export const initialState = {
                   Notification: false,
                 },
     screenSize : undefined,
+    modulesData:{}
   };

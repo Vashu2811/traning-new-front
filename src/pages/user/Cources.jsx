@@ -24,8 +24,10 @@ import _ from "lodash";
 import CenteredProgress from "components/CenteredProgress";
 import ModuleGrid from "components/ModuleGrid";
 import PdfViewer from "components/PdfViewer";
+import { useDispatch, useSelector } from "react-redux";
 
 const Cources = () => {
+  const { modulesData } = useSelector(state => state.customer)
   const { courseId } = useParams();
   const { selectedCourse, storedUserId } = AccessCourse({ courseId });
   const [showAddModal, setShowAddModal] = useState(false);
@@ -45,12 +47,19 @@ const Cources = () => {
   //   return uuidv4();
   // };
   const navigate = useNavigate();
-  const fetchModules = async (courseId) => {
-    try {
-      const response = await getModules(courseId);
-      if (response) {
-        setCourseDetails(response);
-        let modules = response?.modules;
+  const dispatch = useDispatch();
+ console.log("modulesData", modulesData, Object.keys(modulesData).length)
+
+
+  useEffect(() => {
+    let isMounted = true; // ✅ Track if the component is mounted
+
+    const fetchModules = async () => {
+      if (!isMounted) return; // ✅ Stop execution if unmounted
+
+      if (modulesData && Object.keys(modulesData).length > 0) {
+        setCourseDetails(modulesData);
+        let modules = modulesData?.modules;
         if (modules && modules.length) {
           modules = await Promise.all(
             _.map(modules, async (module) => {
@@ -61,6 +70,9 @@ const Cources = () => {
               };
             })
           );
+
+          if (!isMounted) return; // ✅ Prevent state updates after unmount
+
           setModules(
             _.orderBy(
               modules?.filter((module) => module.type === "ai"),
@@ -90,11 +102,21 @@ const Cources = () => {
             )
           );
         }
-      } else {
-        toast.error("Something Went Wrong, Please Try Again.", {
-          autoClose: 3000,
-        });
       }
+    };
+
+    fetchModules();
+
+    return () => {
+      isMounted = false; // ✅ Cleanup function to avoid updates after unmount
+    };
+  }, [JSON.stringify(modulesData)]);
+  
+
+  const fetchModules = async (courseId) => {
+    try {
+      await dispatch(getModules(courseId));
+ 
     } catch (error) {
       toast.error("Something Went Wrong, Please Try Again.", {
         autoClose: 3000,

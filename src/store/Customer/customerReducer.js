@@ -1,4 +1,4 @@
-import { ADD_TASK, SET_ACTIVE_HEADER, SET_ACTIVE_MENU, SET_CURRENT_COLOR, SET_CURRENT_MODE, SET_HANDLE_IS_CLICKED, SET_SCREEN_SIZE, SET_THEME_SETTINGS } from "./customerActionType";
+import { ADD_TASK, GEt_MODULES, SET_ACTIVE_HEADER, SET_ACTIVE_MENU, SET_CURRENT_COLOR, SET_CURRENT_MODE, SET_HANDLE_IS_CLICKED, SET_SCREEN_SIZE, SET_THEME_SETTINGS } from "./customerActionType";
 import { initialState } from "../initialState";
   export const customerReducer = (state = initialState, action) => {
    const  { type , payload } = action;
@@ -57,6 +57,12 @@ import { initialState } from "../initialState";
         return {
          ...state,
          screenSize: payload
+        };
+
+      case GEt_MODULES :
+        return {
+         ...state,
+         modulesData: payload
         };
       default:
         return state;

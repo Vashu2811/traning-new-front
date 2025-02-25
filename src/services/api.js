@@ -1,4 +1,5 @@
 import axios from "axios";
+import { GEt_MODULES } from "store/Customer/customerActionType";
 const newBaseUrl = 
   "https://hcomb-container-app.victoriousbush-67842c2f.eastus.azurecontainerapps.io/";
   // "http://127.0.0.1:5000/";
@@ -139,12 +140,16 @@ export const getCoursesAndModules = async () => {
   }
 }
 
-export const getModules = async (courseId) => {
+export const getModules = (courseId) => async (dispatch) => {
   try {
     const response = await newInstance.get(
       `/training_course_details/${courseId}`
     );
-    return response.data;
+      dispatch({
+        type: GEt_MODULES,
+        payload: response.status == 200 ? response.data : {},
+      })
+    // return response.data;
   } catch (error) {
     throw error.response?.data ?? error.message;
   }
