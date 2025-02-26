@@ -102,6 +102,12 @@ const Cources = () => {
             )
           );
         }
+      }else{
+        setCourseDetails({});
+        setModules([])
+        setCoreModules([])
+        setShortsModules([])
+        setInterview([])
       }
     };
 
