@@ -87,7 +87,6 @@ const AdminvbeeHeader = () => {
               throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            console.log("Raw API Response:", data);
             const transformedData = transformProfileData(data.overview);
             if (!transformedData) {
               throw new Error("Invalid profile data received");

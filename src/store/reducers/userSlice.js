@@ -27,7 +27,6 @@ export const fetchUserProfile = createAsyncThunk(
       }
 
       const data = await response.json();
-      console.log('Raw API Response:', data);
       const transformedData = transformProfileData(data.overview);
 
       if (!transformedData) {
